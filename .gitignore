@@ -3,8 +3,16 @@
 *.plg
 *.ncb
 *.opt
-Debug/
-Release/
 *.o
-bin/lasvalidate
-src/lasvalidate
+cmake-build-debug
+cmake-build-release
+
+# IDE stuff #
+#############
+.idea
+
+# Docs & Data #
+###############
+data
+unit
+doc
