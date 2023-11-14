@@ -2,7 +2,7 @@
 ## lasvalidate
 
   This is a parallelized version of lasvalidate 200104 (LGPL) in
-  C++ to validate or repair LAS/LAZ file on-the-fly in accordance
+  C++ to validate or repair LAS/LAZ files on-the-fly in accordance
   with ASPRS LAS 1.0 to 1.4 specifications.
 
   This version runs serially by default, otherwise specify `-cores`
