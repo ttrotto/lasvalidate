@@ -61,14 +61,21 @@ public:
   inline F64 get_x() const { return quantizer->get_x(X); };
   inline F64 get_y() const { return quantizer->get_y(Y); };
   inline F64 get_z() const { return quantizer->get_z(Z); };
+  inline void set_X(const I32 X) { this->X = X; };
+  inline void set_Y(const I32 Y) { this->Y = Y; };
+  inline void set_Z(const I32 Z) { this->Z = Z; };
   inline U16 get_intensity() const { return intensity; };
   inline U8 get_return_number() const { return return_number; };
+  inline U8 get_number_of_returns() const { return number_of_returns; };
+  inline U8 get_extended_return_number() const { return extended_return_number; };
+  inline U8 get_extended_number_of_returns() const { return extended_number_of_returns; };
   inline U8 get_number_of_returns_of_given_pulse() const { return number_of_returns_of_given_pulse; };
   inline U8 get_classification_flags() const { return classification_flags; };
   inline U8 get_scanner_channel() const { return scanner_channel; };
   inline U8 get_scan_direction_flag() const { return scan_direction_flag; };
   inline U8 get_edge_of_flight_line() const { return edge_of_flight_line; };
   inline U8 get_classification() const { return classification; };
+  inline U8 get_extended_classification() const { return extended_classification; };
   inline U8 get_user_data() const { return user_data; };
   inline U8 get_extended_point_type() { return extended_point_type; };
   inline I16 get_scan_angle() const { return scan_angle; }; // (raw = not scaled by 0.006)
@@ -140,8 +147,6 @@ public:
   LASpoint();
   ~LASpoint();
 
-protected:
-
   // these fields store the point attributes
 
   I32 X;
@@ -149,6 +154,7 @@ protected:
   I32 Z;
   U16 intensity;
   U8 return_number : 4;
+  U8 number_of_returns : 3;
   U8 number_of_returns_of_given_pulse : 4;
   U8 classification_flags : 4;
   U8 scanner_channel : 2;  // LAS 1.4, point types 6 - 10 only
@@ -162,6 +168,14 @@ protected:
   I8 scan_angle_rank;
 
   U8 gps_time_change;      // LAS 1.4, point types 6 - 10 only
+
+  // LAS 1.4 only
+  I16 extended_scan_angle;
+  U8 extended_scanner_channel : 2;
+  U8 extended_classification_flags : 4;
+  U8 extended_classification;
+  U8 extended_return_number : 4;
+  U8 extended_number_of_returns : 4;
 
   F64 gps_time;
 
@@ -188,8 +202,6 @@ protected:
 // for attributed access to the extra bytes
 
   const LASattributer* attributer;
-
-public:
 
   // this field provides generic access to the point data
 

@@ -63,6 +63,7 @@ static void byebye(int return_code, BOOL wait = TRUE)
 static void usage(int return_code, BOOL wait = FALSE)
 {
   fprintf(stderr,"Usage:\n");
+  fprintf(stderr,"------\n");
   fprintf(stderr,"lasvalidate -i lidar.las\n");
   fprintf(stderr,"lasvalidate -i lidar.laz -no_CRS_fail\n");
   fprintf(stderr,"lasvalidate -i *.laz -cores 4 -v \n");
@@ -187,7 +188,6 @@ int main(int argc, char *argv[])
 
     // get a pointer to the header
     LASheader* lasheader = &lasreader->header;
-    fprintf(stdout, "points : %llu", lasheader->number_of_point_records);
 
     CHAR crsdescription[512];
     strcpy(crsdescription, "not valid or not specified");
@@ -213,8 +213,6 @@ int main(int argc, char *argv[])
     U32 pass = (lasheader->fails ? VALIDATE_FAIL : VALIDATE_PASS);
     if (lasheader->warnings) pass |= VALIDATE_WARNING;
 
-    // report details (if necessary)
-
     if (pass != VALIDATE_PASS)
     {
       BOOL success;
@@ -226,7 +224,7 @@ int main(int argc, char *argv[])
           LASrepair lasrepair;
           success = lasrepair.repair_header(lasreader, lasreadopener.get_file_name());
         }
-        if (!success) {num_fail++;};
+        if (success == 0) {num_fail++;};
       }
       else
       {
@@ -235,7 +233,7 @@ int main(int argc, char *argv[])
           LASrepair lasrepair;
           success = lasrepair.repair_header(lasreader, lasreadopener.get_file_name());
         }
-        if (!success) {num_warning++;};
+        if (success == 0) {num_warning++;};
       }
     }
     else
@@ -246,7 +244,7 @@ int main(int argc, char *argv[])
     lasreader->close();
     delete lasreader;
 
-    // in very verbose mode we report the time for each file
+    // in verbose mode we report the time for each file
 
     if (verbose)
     {

@@ -34,6 +34,7 @@
 #include "bytestreamin_file.hpp"
 #include "bytestreamin_istream.hpp"
 #include "lasreadpoint.hpp"
+#include <cstring>
 
 #ifdef _WIN32
 #include <fcntl.h>

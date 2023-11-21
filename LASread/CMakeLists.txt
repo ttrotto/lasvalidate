@@ -18,7 +18,7 @@ target_link_libraries(LASread
 target_compile_definitions(LASread
   PUBLIC
     LASZIP_ENABLED
-#    WIN32
+#    _WIN32
     _MBCS
     _LIB
 )
